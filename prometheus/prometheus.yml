@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'rpc_gateway'
+    static_configs:
+      - targets: ['rpc_gateway:5001']
+  - job_name: 'static_gateway'
+    static_configs:
+      - targets: ['static_gateway:80']

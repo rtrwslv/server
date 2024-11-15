@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  load_balancer:
+    build: ./load_balancer
+    ports:
+      - "5000:5000"
+    depends_on:
+      - rpc_gateway
+      - static_gateway
+
+  rpc_gateway:
+    build: ./rpc_gateway
+    ports:
+      - "5001:5001"
+    depends_on:
+      - summ_service
+
+  static_gateway:
+    build: ./static_gateway
+    ports:
+      - "80:80"
+
+  summ_service:
+    build: ./summ_service
+    ports:
+      - "5002:5002"
+
+  prometheus:
+    build: ./prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
